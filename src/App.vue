@@ -1,30 +1,57 @@
+<script setup lang="ts">
+import { ref, watch } from "vue";
+import QuizCard from "./components/QuizCard.vue";
+import q from "./data/quizes.json";
+
+const quizes = ref(q);
+const search = ref("");
+
+watch(search, () => {
+  quizes.value = q.filter((quiz) =>
+    quiz.name.toLowerCase().includes(search.value.toLowerCase())
+  );
+});
+</script>
+
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <div class="container">
+    <header>
+      <h1>Quizes</h1>
+      <input v-model.trim="search" type="text" placeholder="Search..." />
+    </header>
+
+    <div class="options-container">
+      <QuizCard v-for="quiz in quizes" :key="quiz.id" :quiz="quiz" />
+    </div>
+  </div>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<style scoped>
+.container {
+  width: 1000px;
+  max-height: 0 auto;
+}
+header {
+  margin: 30px 0 10px 0;
+  display: flex;
+  align-items: center;
 }
 
-nav {
-  padding: 30px;
-}
-
-nav a {
+header h1 {
   font-weight: bold;
-  color: #2c3e50;
+  margin-right: 30px;
 }
 
-nav a.router-link-exact-active {
-  color: #42b983;
+header input {
+  border: none;
+  background-color: rgba(128, 128, 128, 0.1);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 40px;
 }
 </style>
