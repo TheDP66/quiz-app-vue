@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, toRefs } from "vue";
+import { useRouter } from "vue-router";
 
 interface Props {
   quiz: {
@@ -21,10 +22,11 @@ interface Props {
 
 const props = defineProps<Props>();
 const { quiz } = toRefs(props);
+const router = useRouter();
 </script>
 
 <template>
-  <div class="card">
+  <div class="card" @click="router.push('/quiz/' + quiz.id)">
     <img :src="quiz.img" alt="Math" />
     <div class="card-text">
       <h2>{{ quiz.name }}</h2>

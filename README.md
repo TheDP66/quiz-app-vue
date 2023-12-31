@@ -1,6 +1,6 @@
 # quiz-app
 
-## Resume video
+## Resume video [DONE]
 
 [here](https://youtu.be/I_xLMmNeLDY?t=12774)
 
